@@ -67,4 +67,22 @@ describe Match do
     @match.pointWonBy("player 1");
     expect(@match.score).to eq('6-6, 1-0')
   end
+
+  it "shows mid level tiebreak scores correctly" do
+    @match.player['player 1'][:set_score] = 6
+    @match.player['player 2'][:set_score] = 6
+    @match.player['player 1'][:game_score] = 4
+    @match.player['player 2'][:game_score] = 4
+    @match.pointWonBy("player 1");
+    expect(@match.score).to eq('6-6, 5-4')
+  end
+
+  it "shows correct score when tiebreak is won" do
+    @match.player['player 1'][:set_score] = 6
+    @match.player['player 2'][:set_score] = 6
+    @match.player['player 1'][:game_score] = 6
+    @match.player['player 2'][:game_score] = 5
+    @match.pointWonBy("player 1");
+    expect(@match.score).to eq('7-6')
+  end
 end
