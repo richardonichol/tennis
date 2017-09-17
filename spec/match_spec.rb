@@ -6,6 +6,6 @@ describe Match do
   end
 
   it "shows start score correctly" do
-    expect(match.score).to eq('0-0, 0-0')
+    expect(@match.score).to eq('0-0, 0-0')
   end
 end

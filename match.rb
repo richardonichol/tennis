@@ -8,7 +8,7 @@ class Match
   end
 
   def score
-    raise "SCORE!"
+    "#{@player1[:set_score]}-#{@player2[:set_score]}, #{@player1[:game_score]}-#{@player2[:game_score]}"
   end
 
   def game_score
