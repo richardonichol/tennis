@@ -21,7 +21,15 @@ class Match
   end
 
   def game_score
-    "#{score_to_s[@player1[:game_score]]}-#{score_to_s[@player2[:game_score]]}"
+    if @player1[:game_score] > 2 && @player2[:game_score] > 2
+      if @player1[:game_score] == @player2[:game_score]
+        'Deuce'
+      else
+        @player1[:game_score] > @player2[:game_score] ? "Advantage #{@player1[:name]}" : "Advantage #{@player2[:name]}"
+      end
+    else
+      "#{score_to_s[@player1[:game_score]]}-#{score_to_s[@player2[:game_score]]}"
+    end
   end
 
   def set_score

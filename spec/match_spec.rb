@@ -37,4 +37,27 @@ describe Match do
     @match.pointWonBy("player 2");
     expect(@match.score).to eq('0-0, Deuce')
   end
+
+  it "shows advantage correctly" do
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 2");
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 2");
+    @match.pointWonBy("player 2");
+    @match.pointWonBy("player 1");
+    expect(@match.score).to eq('0-0, Advantage player 1')
+  end
+
+  it "shows correct score when a game is won" do
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 2");
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 2");
+    @match.pointWonBy("player 2");
+    @match.pointWonBy("player 1");
+    @match.pointWonBy("player 1");
+    expect(@match.score).to eq('1-0')
+  end
 end
