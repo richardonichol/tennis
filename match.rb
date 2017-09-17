@@ -1,10 +1,15 @@
 class Match
   def initialize(p1, p2)
     @player1 = { name: p1, game_score: 0, set_score: 0 }
-    @player2 = { name: p1, game_score: 0, set_score: 0 }
+    @player2 = { name: p2, game_score: 0, set_score: 0 }
   end
 
-  def pointWonBy
+  def pointWonBy(name)
+    player(name)[:game_score] += 1 # would make this conditional on player(name) but input is assumed to be good
+  end
+
+  def player(name)
+    { @player1[:name] => @player1, @player2[:name] => @player2 }[name]
   end
 
   def score
