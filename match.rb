@@ -6,6 +6,18 @@ class Match
 
   def pointWonBy(name)
     player[name][:game_score] += 1 # would make this conditional on player[name] but input is assumed to be good
+    if game_leader[:game_score] > 3 and game_leader[:game_score] > game_trailer[:game_score] + 1
+      game_leader[:set_score] += 1
+      @player1[:game_score], @player2[:game_score] = 0, 0
+    end
+  end
+
+  def game_leader
+    @player1[:game_score] > @player2[:game_score] ? @player1 : @player2
+  end
+
+  def game_trailer
+    @player1 == game_leader ? @player2 : @player1
   end
 
   def player
@@ -13,7 +25,7 @@ class Match
   end
 
   def score
-    "#{@player1[:set_score]}-#{@player2[:set_score]}, #{game_score}"
+    [set_score, game_score].compact.join(', ')
   end
 
   def score_to_s
@@ -28,10 +40,11 @@ class Match
         @player1[:game_score] > @player2[:game_score] ? "Advantage #{@player1[:name]}" : "Advantage #{@player2[:name]}"
       end
     else
-      "#{score_to_s[@player1[:game_score]]}-#{score_to_s[@player2[:game_score]]}"
+      "#{score_to_s[@player1[:game_score]]}-#{score_to_s[@player2[:game_score]]}" if @player1[:game_score] > 0 || @player2[:game_score] > 0
     end
   end
 
   def set_score
+    "#{@player1[:set_score]}-#{@player2[:set_score]}"
   end
 end
