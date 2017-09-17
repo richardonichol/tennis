@@ -5,18 +5,23 @@ class Match
   end
 
   def pointWonBy(name)
-    player(name)[:game_score] += 1 # would make this conditional on player(name) but input is assumed to be good
+    player[name][:game_score] += 1 # would make this conditional on player[name] but input is assumed to be good
   end
 
-  def player(name)
-    { @player1[:name] => @player1, @player2[:name] => @player2 }[name]
+  def player
+    { @player1[:name] => @player1, @player2[:name] => @player2 }
   end
 
   def score
-    "#{@player1[:set_score]}-#{@player2[:set_score]}, #{@player1[:game_score]}-#{@player2[:game_score]}"
+    "#{@player1[:set_score]}-#{@player2[:set_score]}, #{game_score}"
+  end
+
+  def score_to_s
+    { 0 => '0', 1 => '15', 2 => '30', 3 => '40' }
   end
 
   def game_score
+    "#{score_to_s[@player1[:game_score]]}-#{score_to_s[@player2[:game_score]]}"
   end
 
   def set_score
