@@ -67,3 +67,5 @@ The interface should look something like this in Java:
 
 Implementation Notes
 ====================
+
+There are no instructions to give an indication of when a set is over, so nothing special is shown - just the final set score.

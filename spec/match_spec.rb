@@ -60,4 +60,11 @@ describe Match do
     @match.pointWonBy("player 1");
     expect(@match.score).to eq('1-0')
   end
+
+  it "shows first tiebreak point correctly" do
+    @match.player['player 1'][:set_score] = 6
+    @match.player['player 2'][:set_score] = 6
+    @match.pointWonBy("player 1");
+    expect(@match.score).to eq('6-6, 1-0')
+  end
 end

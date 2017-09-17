@@ -5,11 +5,23 @@ class Match
   end
 
   def pointWonBy(name)
-    player[name][:game_score] += 1 # would make this conditional on player[name] but input is assumed to be good
-    if game_leader[:game_score] > 3 and game_leader[:game_score] > game_trailer[:game_score] + 1
+    player[name][:game_score] += 1
+    if game_leader_won_game?
       game_leader[:set_score] += 1
       @player1[:game_score], @player2[:game_score] = 0, 0
     end
+  end
+
+  def game_leader_won_game?
+    if tie_break?
+      game_leader[:game_score] > 6 && game_leader[:game_score] > game_trailer[:game_score] + 1
+    else
+      game_leader[:game_score] > 3 && game_leader[:game_score] > game_trailer[:game_score] + 1
+    end
+  end
+
+  def tie_break?
+    @player1[:set_score] == 6 && @player2[:set_score] == 6
   end
 
   def game_leader
@@ -33,6 +45,10 @@ class Match
   end
 
   def game_score
+    tie_break? ? tie_break_score : regular_game_score
+  end
+
+  def regular_game_score
     if @player1[:game_score] > 2 && @player2[:game_score] > 2
       if @player1[:game_score] == @player2[:game_score]
         'Deuce'
@@ -42,6 +58,10 @@ class Match
     else
       "#{score_to_s[@player1[:game_score]]}-#{score_to_s[@player2[:game_score]]}" if @player1[:game_score] > 0 || @player2[:game_score] > 0
     end
+  end
+
+  def tie_break_score
+    "#{@player1[:game_score]}-#{@player2[:game_score]}" if @player1[:game_score] > 0 || @player2[:game_score] > 0
   end
 
   def set_score
